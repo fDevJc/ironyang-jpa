@@ -28,6 +28,13 @@ public class Post {
     public Post() {
     }
 
+    public Post(Long id, String writer, String title, String content) {
+        this.id = id;
+        this.writer = writer;
+        this.title = title;
+        this.content = content;
+    }
+
     public Post(String writer, String title, String content) {
         this.writer = writer;
         this.title = title;

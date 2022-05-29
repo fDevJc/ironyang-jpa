@@ -13,4 +13,18 @@ public class PostService {
     public Long addPost(Post post) {
         return postRepository.save(post).getId();
     }
+
+    public Long modifyPost(Post post) {
+        return post.getId();
+    }
+
+    public Post findPost(Long id) {
+        return postRepository.findById(id).get();
+    }
+
+    public Long deletePost(Long id) {
+        Post post = postRepository.findById(id).get();
+        postRepository.delete(post);
+        return id;
+    }
 }

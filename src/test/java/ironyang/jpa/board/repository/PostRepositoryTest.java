@@ -1,6 +1,7 @@
 package ironyang.jpa.board.repository;
 
 import ironyang.jpa.board.domain.Post;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,6 +17,7 @@ class PostRepositoryTest {
     PostRepository postRepository;
 
     @Test
+    @DisplayName("post 추가")
     void save() {
         //given
         Post post = new Post("yang", "title", "content");
@@ -31,6 +33,7 @@ class PostRepositoryTest {
     }
 
     @Test
+    @DisplayName("post 목록 조회")
     void findAll() {
         //given
         Post post1 = new Post("yang", "title1", "content1");
@@ -44,5 +47,20 @@ class PostRepositoryTest {
         //then
         assertThat(posts.size()).isEqualTo(2);
         assertThat(posts).containsExactly(post1, post2);
+    }
+    @Test
+    @DisplayName("post 상세 조회")
+    void findById() {
+        //given
+        Post post = new Post("yang", "title", "content");
+        postRepository.save(post);
+
+        //when
+        Post foundPost = postRepository.findById(post.getId()).get();
+
+        //then
+        assertThat(foundPost.getWriter()).isEqualTo(post.getWriter());
+        assertThat(foundPost.getTitle()).isEqualTo(post.getTitle());
+        assertThat(foundPost.getContent()).isEqualTo(post.getContent());
     }
 }
