@@ -1,16 +1,18 @@
 package ironyang.jpa.board.repository;
 
+import ironyang.jpa.board.domain.Comment;
 import ironyang.jpa.board.domain.Post;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Commit;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
+@Commit
 @DataJpaTest
 class PostRepositoryTest {
     @Autowired
@@ -21,6 +23,10 @@ class PostRepositoryTest {
     void save() {
         //given
         Post post = new Post("yang", "title", "content");
+        Comment comment = new Comment("content");
+
+        post.addComment(comment);
+
         postRepository.save(post);
 
         //when

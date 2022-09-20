@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping("/post")
+    @PostMapping("/posts")
     public String addPost(@RequestBody Post post) {
         postService.addPost(post);
         return "post ok";
     }
 
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/posts/{id}")
     public String deletePost(@PathVariable Long id) {
         return "delete ok";
     }

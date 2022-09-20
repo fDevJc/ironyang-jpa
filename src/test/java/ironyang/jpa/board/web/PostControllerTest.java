@@ -14,8 +14,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import javax.persistence.ExcludeSuperclassListeners;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -40,9 +38,10 @@ class PostControllerTest {
         log.info("postJson = {}", postJson);
 
         //when
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/post")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(postJson));
+        ResultActions resultActions = mockMvc.perform(
+                MockMvcRequestBuilders.post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(postJson));
         //then
         resultActions
                 .andExpect(MockMvcResultMatchers.status().isOk());

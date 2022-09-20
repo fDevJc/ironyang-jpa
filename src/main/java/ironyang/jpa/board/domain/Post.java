@@ -1,16 +1,15 @@
 package ironyang.jpa.board.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 public class Post {
     @Id @GeneratedValue
@@ -19,7 +18,7 @@ public class Post {
     private String title;
     private String content;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     private LocalDateTime createdDate;
@@ -28,16 +27,14 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, String writer, String title, String content) {
-        this.id = id;
+    public Post(String writer, String title, String content) {
         this.writer = writer;
         this.title = title;
         this.content = content;
     }
 
-    public Post(String writer, String title, String content) {
-        this.writer = writer;
-        this.title = title;
-        this.content = content;
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPost(this);
     }
 }
